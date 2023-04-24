@@ -239,7 +239,7 @@ def train(name, Parms, dataSetType = 0, records = True, optimalPra = False,solo 
             model,
             criterion=torch.nn.NLLLoss,
             optimizer=torch.optim.AdamW,
-            train_split=predefined_split(test_set),  # using valid_set for validation     
+            train_split=predefined_split(val_set),  # using valid_set for validation     
             optimizer__lr=lr,
             optimizer__weight_decay=weight_decay,
             batch_size=batch_size,
