@@ -11,7 +11,7 @@ def _transpose_to_b_1_c_0(x):
 
 class EEG_CDILNet(nn.Module):
     
-    def __init__(self,inChannel =22,outClass=4, F1=24, KE = 48, D = 2, pe = 0.2, hiden=24, layer = 2, ks =3,pool = 8) -> None:
+    def __init__(self,inChannel =22,outClass=4, F1=24, KE = 64, D = 2, pe = 0.2, hiden=24, layer = 2, ks =3,pool = 8) -> None:
         super(EEG_CDILNet, self).__init__()
         #
         F2 = F1 * D
