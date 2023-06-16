@@ -61,10 +61,10 @@ def preProcess(type = 0, low_cut_hz = 4, high_cut_hz = 38, factor_new = 1e-3, in
             preprocessors = [
             Preprocessor('pick_types', eeg=True, meg=False, stim=False),  # Keep EEG sensors
             Preprocessor(scale, factor=1e6, apply_on_array=True),  # Convert from V to uV
-            Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter
+            Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter [4,38] or [0,38]
             Preprocessor(exponential_moving_standardize,  # Exponential moving standardization
                         factor_new=factor_new, init_block_size=init_block_size),
-            #Preprocessor('resample', sfreq=150 )  # Resampling is 150Hz
+            #Preprocessor('resample', sfreq=150 )  # 150Hz or 180hz or 250hz
             ]
     else:
         preprocessors = [
@@ -166,7 +166,7 @@ def train(name, Parms, dataSetType = 0, records = True, optimalPra = False,solo 
         #loading
         dataset = loadDatasets(type = dataSetType,subject_id = subject_id)
         #Preprocessing
-        low_cut_hz = 4.  # low cut frequency for filtering
+        low_cut_hz = 4.  # low cut frequency for filtering    
         high_cut_hz = 38.  # high cut frequency for filtering
 
         # Parameters for exponential moving standardization
@@ -180,8 +180,8 @@ def train(name, Parms, dataSetType = 0, records = True, optimalPra = False,solo 
         # Transform the data
         preprocess(dataset, preprocessors)
 
-        #Cut Compute Windows
-        trial_start_offset_seconds = -0.5 
+        #Cut Compute Windows  [-0.5, 4]s or [0.5, 2.5]s
+        trial_start_offset_seconds = -0.5    
         trial_end_offset_seconds = 0
         # Extract sampling frequency, check that they are same in all datasets
         sfreq = dataset.datasets[0].raw.info['sfreq']
