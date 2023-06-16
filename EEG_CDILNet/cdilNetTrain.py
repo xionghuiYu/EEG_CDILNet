@@ -86,7 +86,7 @@ def splitDataset(type, windows_dataset):
     The other two datasets are divided by default.
     """
     if type == 0: # BCIIV2a
-        spliType = 2
+        spliType = 1
         if spliType == 1:
         # training : test =  5 : 5
             splitted = windows_dataset.split('session')
