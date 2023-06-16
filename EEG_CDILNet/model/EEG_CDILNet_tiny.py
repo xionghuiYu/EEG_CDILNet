@@ -3,7 +3,7 @@
 import torch
 import torch.nn as nn
 from braindecode.models.modules import Expression, Ensure4d
-from .CDIL_CNN1 import CDIL_ConvPart
+from .CDIL_CNN import CDIL_ConvPart
 from braindecode.models import to_dense_prediction_model, get_output_shape
 
 def _transpose_to_b_1_c_0(x):
