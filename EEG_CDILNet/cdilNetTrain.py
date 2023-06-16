@@ -93,7 +93,7 @@ def splitDataset(type, windows_dataset):
             train_set = splitted['session_T']
             test_set = splitted['session_E']
         elif spliType == 2:
-        # training : test =  8 : 2
+        # training : test =  8 : 2   you can try it 
             import random
             index_train = random.sample([i for i in range(12)],9)
             index_valid = list(set([i for i in range(12)]) - set(index_train))
@@ -180,7 +180,7 @@ def train(name, Parms, dataSetType = 0, records = True, optimalPra = False,solo 
         # Transform the data
         preprocess(dataset, preprocessors)
 
-        #Cut Compute Windows  [-0.5, 4]s or [0.5, 2.5]s
+        #Cut Compute Windows  [-0.5, 4]s
         trial_start_offset_seconds = -0.5    
         trial_end_offset_seconds = 0
         # Extract sampling frequency, check that they are same in all datasets
@@ -461,4 +461,3 @@ if __name__ == "__main__":
         totalParamenter1 = [[24,32,48], [48,64], [2,4], [0.2,0.5], [24,32], [2,3], [3],[8]]
         temp = []
         gridsearch(totalParamenter1, temp, 0, dataSetType)
-    
