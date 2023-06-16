@@ -86,9 +86,9 @@ def splitDataset(type, windows_dataset):
     The other two datasets are divided by default.
     """
     if type == 0: # BCIIV2a
-        spliType = 1
-        if spliType == 1:
-        # training : test =  5 : 5
+        spliType = 1   #spliType == 1 in the paper
+        if spliType == 1:  
+        # training : test =  5 : 5  by default
             splitted = windows_dataset.split('session')
             train_set = splitted['session_T']
             test_set = splitted['session_E']
@@ -116,17 +116,17 @@ def trainPrarms():
         inchannel = 22
         outclass = 4
         lr = 0.1 *0.05
-        n_epochs = 250
+        n_epochs = 500
     elif dataSetType == 1:
         inchannel = 44
         outclass = 4
-        lr = 0.01 *0.5
-        n_epochs = 250
+        lr = 0.01 *0.1
+        n_epochs = 500
     elif dataSetType == 2:
         inchannel = 3
         outclass = 2
         lr = 0.9 *0.01
-        n_epochs = 250
+        n_epochs = 500
 
     weight_decay = 0.5 * 0.001
     batch_size = 64
@@ -233,7 +233,7 @@ def train(name, Parms, dataSetType = 0, records = True, optimalPra = False,solo 
         f_params_name = parFilename(subject_id)
         
         checkpoint = Checkpoint( f_params=f_params_name, monitor='valid_loss_best',load_best=True)
-        early_stop = EarlyStopping(monitor='valid_accuracy',lower_is_better=False,patience=100)
+        early_stop = EarlyStopping(monitor='valid_accuracy',lower_is_better=False,patience=50)
         # train model
         clf = EEGClassifier(
             model,
