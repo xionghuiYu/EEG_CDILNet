@@ -24,7 +24,7 @@ from braindecode.visualization import plot_confusion_matrix
 import csv
 channelDrop = ['AF3', 'AF4', 'AF7', 'AF8', 'AFF1', 'AFF2', 'AFF5h', 'AFF6h', 'AFp3h', 'AFp4h', 'AFz', 'Cz', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'FFT7h', 'FFT8h', 'FT10', 'FT7', 'FT8', 'FT9', 'FTT10h', 'FTT7h', 'FTT8h', 'FTT9h', 'Fp1', 'Fp2', 'Fpz', 'Fz', 'I1', 'I2', 'Iz', 'M1', 'M2', 'O1', 'O2', 'OI1h', 'OI2h', 'Oz', 'P1', 'P10', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'PO10', 'PO3', 'PO4', 'PO5', 'PO6', 'PO7', 'PO8', 'PO9', 'POO10h', 'POO3h', 'POO4h', 'POO9h', 'POz', 'PPO1', 'PPO10h', 'PPO2', 'PPO5h', 'PPO6h', 'PPO9h', 'Pz', 'T7', 'T8', 'TP7', 'TP8', 'TPP10h', 'TPP7h', 'TPP8h', 'TPP9h', 'TTP7h', 'TTP8h'] 
 
-K_fold = 10 # K fold
+
 
 def KFtrain(name, Parms, datasChoose = 0, records = True):
     subNum = 9 if datasChoose == 0 else 14
@@ -199,7 +199,7 @@ def recordValid(listData,select = 0):
 def gridsearch(totalParamenter, temp, start, dataType):
     if len(temp) == len(totalParamenter) and start == len(totalParamenter):
         import time #
-        Time = time.strftime("%m%d%H",time.localtime())
+        Time = time.strftime("%m%d%H",time.localtime()) + 'KGV'
         Time += '_BCIC' if dataType == 0 else '_HGD' 
         t = [str(i) for i in temp]
         Time += '_F1:' + t[0] +'_Ke:' + t[1] + '_D:' + t[2] + '_pe:'+ t[3] + '_H:' + t[4] + '_L:' + t[5] + '_Ks:' + t[6]
@@ -222,11 +222,12 @@ if __name__ == "__main__":
     #(F1=12, KE = 32, D = 2, pe = 0.2, hiden=20, layer = 2, ks =5)
     #                   F1       KE    D    pe     hiden  layer   ks
     #
+    K_fold = 10 # K fold
     dataType = 0 #0:BCIC 1:HGD
     KFTrain = True
     if KFTrain:
         parma = [24, 48, 2, 0.2, 24, 2, 3]
-        for i in range(10):
+        for i in range(K_fold):
             import time 
             Time = time.strftime("%m%d%H",time.localtime())+'_Kfold=' + str(K_fold) + '_'
             Time += '_BCIC' if dataType == 0 else '_HGD' 
