@@ -199,7 +199,7 @@ def recordValid(listData,select = 0):
 def gridsearch(totalParamenter, temp, start, dataType):
     if len(temp) == len(totalParamenter) and start == len(totalParamenter):
         import time #
-        Time = time.strftime("%m%d%H",time.localtime()) + 'KGV'
+        Time = time.strftime("%m%d%H",time.localtime()) + 'KGridCV'
         Time += '_BCIC' if dataType == 0 else '_HGD' 
         t = [str(i) for i in temp]
         Time += '_F1:' + t[0] +'_Ke:' + t[1] + '_D:' + t[2] + '_pe:'+ t[3] + '_H:' + t[4] + '_L:' + t[5] + '_Ks:' + t[6]
@@ -225,19 +225,28 @@ if __name__ == "__main__":
     K_fold = 10 # K fold
     dataType = 0 #0:BCIC 1:HGD
     KFTrain = True
+    KGridCV = False 
     if KFTrain:
+        count = 10
         parma = [24, 48, 2, 0.2, 24, 2, 3]
-        for i in range(K_fold):
+        for i in range(10):
             import time 
             Time = time.strftime("%m%d%H",time.localtime())+'_Kfold=' + str(K_fold) + '_'
             Time += '_BCIC' if dataType == 0 else '_HGD' 
             # print(int(Time.split('_')[0]))
             KFtrain(Time, parma, dataType)
     
-    #Read the best K-fold crossover results
-    import joblib  
-    kfoldBest = joblib.load(r'bestKfold.pkl') #Take out the historical best for comparison 
-    ret = []
-    for subj in kfoldBest:
-        ret.append(sum(subj)/K_fold)
-    print(ret)
+        #Read the best K-fold crossover results
+        import joblib  
+        kfoldBest = joblib.load(r'bestKfold.pkl') #Take out the historical best for comparison 
+        ret = []
+        for subj in kfoldBest:
+            ret.append(sum(subj)/K_fold)
+        print(ret)
+
+    if KGridCV:
+        #                    F1       KE      D    pe     hiden  layer   ks  pool
+        totalParamenter1 = [[24,32,48], [48,64], [2,4], [0.2,0.5], [24,32], [2,3], [3],[8]]
+        temp = []
+        gridsearch(totalParamenter1, temp, 0, dataType)
+    
