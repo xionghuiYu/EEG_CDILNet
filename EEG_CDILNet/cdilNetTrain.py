@@ -93,7 +93,7 @@ def splitDataset(type, windows_dataset):
             train_set = splitted['session_T']
             test_set = splitted['session_E']
         elif spliType == 2:
-        # training : test =  8 : 2   you can try it 
+        # training : test =  8 : 2   test
             import random
             index_train = random.sample([i for i in range(12)],9)
             index_valid = list(set([i for i in range(12)]) - set(index_train))
